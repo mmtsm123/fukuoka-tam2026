@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>福岡 timelesz 遠征</title>
+<style>
+  :root{
+    --bg:#0d1b2a; --card:#ffffff; --ink:#1b263b; --sub:#5c6b82;
+    --accent:#2a9d8f; --accent2:#e76f51; --line:#e6ebf1; --soft:#f4f7fb;
+    --pink:#e5679a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    color:var(--ink); background:linear-gradient(180deg,#0d1b2a 0%,#1b3a4b 100%);
+    line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:620px;margin:0 auto;padding:0 16px 60px}
+  header.hero{
+    text-align:center;color:#fff;padding:44px 16px 30px;
+  }
+  .hero .ey{font-size:13px;letter-spacing:.28em;color:#a8dadc;font-weight:600}
+  .hero h1{font-size:30px;font-weight:800;margin:10px 0 6px;line-height:1.3}
+  .hero .date{font-size:15px;color:#cfe3e6;font-weight:600}
+  nav.tabs{
+    position:sticky;top:0;z-index:20;display:flex;gap:5px;justify-content:space-between;
+    padding:9px 12px;background:rgba(13,27,42,.94);backdrop-filter:blur(8px);
+    margin:0 -16px 4px;
+  }
+  nav.tabs a{
+    flex:1 1 0;text-align:center;color:#cfe3e6;text-decoration:none;font-size:12px;font-weight:700;
+    padding:7px 4px;border-radius:16px;border:1px solid rgba(255,255,255,.18);white-space:nowrap
+  }
+  nav.tabs a:active{background:var(--accent)}
+  .walica{
+    display:block;text-align:center;text-decoration:none;
+    background:linear-gradient(90deg,#f4a259,#e76f51);color:#fff;font-weight:700;font-size:14px;
+    padding:13px 16px;border-radius:14px;margin:10px 0 2px;
+    box-shadow:0 6px 18px rgba(231,111,81,.35)
+  }
+  section{margin-top:22px}
+  .sec-title{
+    color:#fff;font-size:16px;font-weight:800;margin-bottom:12px;
+    display:flex;align-items:center;gap:8px
+  }
+  .sec-title .dot{width:8px;height:8px;border-radius:50%;background:var(--accent2)}
+  .card{
+    background:var(--card);border-radius:16px;padding:16px 16px;margin-bottom:12px;
+    box-shadow:0 8px 24px rgba(0,0,0,.18)
+  }
+  .day-badge{
+    display:inline-block;background:var(--accent);color:#fff;font-size:12px;font-weight:700;
+    padding:3px 12px;border-radius:20px;margin-bottom:10px
+  }
+  .item{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+  .item:first-of-type{border-top:none}
+  .time{flex:0 0 58px;font-weight:800;color:var(--accent);font-size:14px}
+  .body h3{font-size:15px;font-weight:700;margin-bottom:2px}
+  .body p{font-size:13px;color:var(--sub);margin:1px 0}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:12px;margin-bottom:4px}
+  .tag.eat{background:#fff2ec;color:var(--accent2)}
+  .tag.live{background:#fde7f0;color:var(--pink)}
+  .tag.move{background:#e8f5f3;color:var(--accent)}
+  .tag.free{background:#eef1f6;color:var(--sub)}
+  a.btn{
+    display:inline-block;margin-top:8px;margin-right:6px;font-size:12px;font-weight:700;
+    text-decoration:none;padding:6px 13px;border-radius:20px;border:1px solid var(--line);
+    color:var(--ink);background:var(--soft)
+  }
+  a.btn.map{background:#eaf4ff;color:#1d6fd0;border-color:#d3e6fb}
+  a.btn.web{background:#f0ecff;color:#6b46c1;border-color:#e0d8f7}
+  /* flights */
+  .flight{padding:12px 0;border-top:1px solid var(--line)}
+  .flight:first-child{border-top:none}
+  .flight .route{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px}
+  .flight .meta{font-size:12px;color:var(--sub);margin-top:3px}
+  .flight .who{margin-top:5px}
+  .who b{
+    display:inline-block;background:var(--soft);border:1px solid var(--line);
+    font-size:12px;font-weight:700;color:var(--ink);padding:2px 10px;border-radius:14px;margin:2px 4px 0 0
+  }
+  .grp-title{font-size:12px;font-weight:800;color:var(--sub);letter-spacing:.05em;margin-bottom:2px}
+  .hotel-name{font-size:17px;font-weight:800;margin-bottom:4px}
+  .kv{display:flex;font-size:13px;padding:4px 0}
+  .kv .k{flex:0 0 92px;color:var(--sub);font-weight:600}
+  .note{font-size:12px;color:var(--sub);text-align:center;margin-top:6px}
+  .wishlist{font-size:13px;color:var(--sub);line-height:2}
+  .wl-form{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+  .wl-form input{
+    width:100%;font-size:14px;padding:10px 12px;border:1px solid var(--line);
+    border-radius:10px;background:var(--soft);color:var(--ink);font-family:inherit
+  }
+  .wl-add{
+    border:none;background:var(--accent);color:#fff;font-weight:700;font-size:14px;
+    padding:11px;border-radius:10px;cursor:pointer
+  }
+  .wl-empty{font-size:13px;color:var(--sub);text-align:center;padding:8px 0}
+  .wl-item{
+    display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-top:1px solid var(--line)
+  }
+  .wl-item:first-child{border-top:none}
+  .wl-date{
+    flex:0 0 auto;background:#e8f5f3;color:var(--accent);font-weight:700;font-size:12px;
+    padding:3px 9px;border-radius:12px;white-space:nowrap
+  }
+  .wl-main{flex:1 1 auto;min-width:0}
+  .wl-main .name{font-size:14px;font-weight:700;color:var(--ink)}
+  .wl-main a{font-size:12px;color:#1d6fd0;word-break:break-all;text-decoration:none}
+  .wl-del{
+    flex:0 0 auto;border:none;background:transparent;color:var(--accent2);
+    font-size:18px;line-height:1;cursor:pointer;padding:2px 4px
+  }
+  footer{text-align:center;color:#8fb0b6;font-size:12px;margin-top:36px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="ey">FUKUOKA TRIP</div>
+    <h1>福岡 timelesz 遠征</h1>
+    <div class="date">2026.8.15 (土) 〜 8.16 (日) ・ 1泊2日</div>
+  </header>
+
+  <nav class="tabs">
+    <a href="#schedule">📅 行程</a>
+    <a href="#transport">🚄 交通</a>
+    <a href="#hotel">🏨 ホテル</a>
+    <a href="#live">🎤 ライブ</a>
+    <a href="#wishlist">📝 リスト</a>
+  </nav>
+
+  <a class="walica" href="https://walica.jp/group/01KZV7XFZAG9H0YK6NZ9BQ9XKT" target="_blank">💰 割り勘の入力・確認はこちら（Walica）</a>
+
+  <!-- 行程 -->
+  <section id="schedule">
+    <div class="sec-title"><span class="dot"></span>行程スケジュール</div>
+
+    <div class="card">
+      <span class="day-badge">DAY 1 ・ 8/15 (土)</span>
+      <div class="item">
+        <div class="time">11:00</div>
+        <div class="body">
+          <span class="tag move">移動</span>
+          <h3>福岡空港 到着</h3>
+          <p>JAL311 で羽田より到着（9:15 発 → 11:00 着）</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="time">15:00</div>
+        <div class="body">
+          <span class="tag move">チェックイン</span>
+          <h3>アパホテル＆リゾート〈博多駅東〉</h3>
+          <p>🚇 福岡空港から地下鉄空港線で博多駅 約5分 → 筑紫口 徒歩約4分</p>
+          <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=アパホテル＆リゾート博多駅東" target="_blank">🗺 地図</a>
+          <a class="btn" href="#hotel">🏨 ホテル詳細</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="time">午後〜</div>
+        <div class="body">
+          <span class="tag free">自由</span>
+          <h3>行きたいところへ</h3>
+          <a class="btn" href="#wishlist">📝 行きたいところリスト</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="day-badge">DAY 2 ・ 8/16 (日) 🎤 ライブDAY</span>
+      <div class="item">
+        <div class="time">午前</div>
+        <div class="body">
+          <span class="tag move">チェックアウト</span>
+          <h3>ホテル チェックアウト</h3>
+        </div>
+      </div>
+      <div class="item">
+        <div class="time">〜13:00</div>
+        <div class="body">
+          <span class="tag move">移動</span>
+          <h3>会場へ移動</h3>
+          <p>🚌 博多駅から西鉄バスで約13〜20分（マリンメッセ福岡前 下車）</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="time">13:00</div>
+        <div class="body">
+          <span class="tag live">LIVE</span>
+          <h3>timelesz LIVE 開演</h3>
+          <p>We're timelesz LIVE TOUR 2026 episode 2 MOMENTUM</p>
+          <p>会場：マリンメッセ福岡A館</p>
+          <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=マリンメッセ福岡A館" target="_blank">🗺 マリンメッセ福岡A館</a>
+          <a class="btn" href="#live">🎤 ライブ詳細</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="time">終演後</div>
+        <div class="body">
+          <span class="tag move">移動</span>
+          <p>🚕 会場から博多駅へはタクシー予定（車で約10〜15分）。終演後は混むので配車がおすすめ</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="time">18:30</div>
+        <div class="body">
+          <span class="tag move">移動</span>
+          <h3>博多駅 → 東京（新幹線）</h3>
+          <p>18:30 発 → 23:27 着</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 交通 -->
+  <section id="transport">
+    <div class="sec-title"><span class="dot"></span>交通情報</div>
+
+    <div class="card">
+      <div class="grp-title">往路 ・ 8/15 (土) ｜ ✈️ 羽田 → 福岡</div>
+      <div class="flight">
+        <div class="route">JAL 311</div>
+        <div class="meta">09:15 発 → 11:00 着</div>
+        <div class="who"><b>真実</b><b>美来</b></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="grp-title">復路 ・ 8/16 (日) ｜ 🚄 博多 → 東京（新幹線）</div>
+      <div class="flight">
+        <div class="route">新幹線</div>
+        <div class="meta">18:30 発 → 23:27 着</div>
+        <div class="who"><b>真実</b><b>美来</b></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="grp-title">⏰ 締切の目安</div>
+      <div class="kv"><span class="k">飛行機</span><span>搭乗手続 出発20分前 / 保安検査 15〜20分前 / 搭乗口 10分前</span></div>
+      <div class="kv"><span class="k">新幹線</span><span>指定席は発車時刻まで。10〜15分前にはホームへ</span></div>
+    </div>
+  </section>
+
+  <!-- ホテル -->
+  <section id="hotel">
+    <div class="sec-title"><span class="dot"></span>ホテル</div>
+    <div class="card">
+      <div class="hotel-name">アパホテル＆リゾート〈博多駅東〉</div>
+      <div class="kv"><span class="k">住所</span><span>〒812-0013 福岡市博多区博多駅東1丁目18番1号</span></div>
+      <div class="kv"><span class="k">アクセス</span><span>JR博多駅 筑紫口 徒歩約4分</span></div>
+      <div class="kv"><span class="k">TEL</span><span>0570-009-011</span></div>
+      <div style="margin-top:10px">
+        <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=アパホテル＆リゾート博多駅東" target="_blank">🗺 地図</a>
+        <a class="btn web" href="https://www.apahotel.com/resort/hakataeki-higashi/" target="_blank">🌐 公式サイト</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ライブ -->
+  <section id="live">
+    <div class="sec-title"><span class="dot"></span>ライブ 🎤</div>
+    <div class="card">
+      <span class="tag live">8/16 (日) 開演 13:00</span>
+      <div class="hotel-name" style="margin-top:6px">timelesz</div>
+      <div class="kv"><span class="k">ツアー</span><span>We're timelesz LIVE TOUR 2026 episode 2 MOMENTUM</span></div>
+      <div class="kv"><span class="k">会場</span><span>マリンメッセ福岡A館</span></div>
+      <div class="kv"><span class="k">開演</span><span>13:00</span></div>
+      <div style="margin-top:10px">
+        <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=マリンメッセ福岡A館" target="_blank">🗺 マリンメッセ福岡A館</a>
+        <a class="btn web" href="https://starto.jp/s/p/live/10431?tab=schedule" target="_blank">🌐 公演スケジュール</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 行きたいところリスト -->
+  <section id="wishlist">
+    <div class="sec-title"><span class="dot"></span>行きたいところリスト 📝</div>
+    <div class="card">
+      <div class="wl-form">
+        <input type="date" id="wlDate">
+        <input type="text" id="wlName" placeholder="行き先・お店の名前">
+        <input type="url" id="wlUrl" placeholder="URL（任意）">
+        <button class="wl-add" id="wlAdd">＋ 追加する</button>
+      </div>
+      <div id="wlList"></div>
+      <p class="note" id="wlStatus">接続中…</p>
+    </div>
+  </section>
+
+  <footer>
+    福岡 timelesz 遠征
+  </footer>
+
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  /* ▼▼▼ ここに Firebase の設定を貼り付け（下の手順参照） ▼▼▼ */
+  const firebaseConfig = {
+    apiKey: "ここに貼る",
+    authDomain: "ここに貼る",
+    projectId: "ここに貼る",
+    storageBucket: "ここに貼る",
+    messagingSenderId: "ここに貼る",
+    appId: "ここに貼る"
+  };
+  /* ▲▲▲ ここまで ▲▲▲ */
+
+  const listEl   = document.getElementById('wlList');
+  const statusEl = document.getElementById('wlStatus');
+  const dateEl   = document.getElementById('wlDate');
+  const nameEl   = document.getElementById('wlName');
+  const urlEl    = document.getElementById('wlUrl');
+  const addBtn   = document.getElementById('wlAdd');
+
+  if (firebaseConfig.apiKey === "ここに貼る") {
+    listEl.innerHTML = '<div class="wl-empty">Firebaseの設定がまだです。下の手順にそって firebaseConfig を貼り付けてください。</div>';
+    statusEl.textContent = '';
+  } else {
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+    const col = collection(db, 'wishlist');
+
+    function fmtDate(d){
+      if(!d) return '未定';
+      const p = d.split('-');
+      return p.length === 3 ? (p[1]+'/'+p[2]) : d;
+    }
+
+    onSnapshot(col, function(snap){
+      const items = [];
+      snap.forEach(function(docSnap){
+        items.push(Object.assign({ _id: docSnap.id }, docSnap.data()));
+      });
+      items.sort(function(a,b){ return (a.date||'9999').localeCompare(b.date||'9999'); });
+
+      statusEl.textContent = '🟢 2人でリアルタイム共有中';
+
+      if(items.length === 0){
+        listEl.innerHTML = '<div class="wl-empty">まだ登録がありません。上のフォームから追加してください。</div>';
+        return;
+      }
+      listEl.innerHTML = '';
+      items.forEach(function(it){
+        const row = document.createElement('div');
+        row.className = 'wl-item';
+
+        const date = document.createElement('span');
+        date.className = 'wl-date';
+        date.textContent = fmtDate(it.date);
+
+        const main = document.createElement('div');
+        main.className = 'wl-main';
+        const nm = document.createElement('div');
+        nm.className = 'name';
+        nm.textContent = it.name;
+        main.appendChild(nm);
+        if(it.url){
+          const a = document.createElement('a');
+          a.href = it.url; a.target = '_blank'; a.rel = 'noopener';
+          a.textContent = it.url;
+          main.appendChild(a);
+        }
+
+        const del = document.createElement('button');
+        del.className = 'wl-del';
+        del.textContent = '×';
+        del.onclick = function(){ deleteDoc(doc(db, 'wishlist', it._id)); };
+
+        row.appendChild(date);
+        row.appendChild(main);
+        row.appendChild(del);
+        listEl.appendChild(row);
+      });
+    }, function(err){
+      statusEl.textContent = '⚠️ 接続エラー：' + err.code + '（Firestoreのルールを確認してください）';
+    });
+
+    addBtn.onclick = async function(){
+      const name = (nameEl.value || '').trim();
+      if(!name){ nameEl.focus(); return; }
+      addBtn.disabled = true;
+      try {
+        await addDoc(col, { date: dateEl.value || '', name: name, url: (urlEl.value||'').trim() });
+        dateEl.value = ''; nameEl.value = ''; urlEl.value = '';
+      } catch(e){
+        statusEl.textContent = '⚠️ 追加に失敗：' + e.code;
+      }
+      addBtn.disabled = false;
+    };
+  }
+</script>
+</body>
+</html>
